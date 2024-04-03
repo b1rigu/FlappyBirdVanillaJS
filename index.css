@@ -1,0 +1,9 @@
+body {
+    height: 100vh;
+    background-color: black;
+    margin: 0;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
