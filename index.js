@@ -15,6 +15,8 @@ backgroundCanvas.height = canvasHeight;
 const backgroundContext = backgroundCanvas.getContext("2d", { alpha: false });
 backgroundContext.imageSmoothingEnabled = false;
 
+const pauseMenu = document.getElementById("pauseMenu");
+
 const backgroundImage = createImage("./flappyback.png");
 const avatarImage = createImage("./flappy.png");
 
@@ -150,6 +152,8 @@ function createObstacle() {
 function mainLoop() {
     timer = requestAnimationFrame(mainLoop);
 
+    if (isGamePaused) return;
+
     animationLoop();
 
     if (!canRunLoop(physicsFPS, 0)) return;
@@ -277,6 +281,7 @@ let obstacleVel = 4;
 let score = 0;
 let alreadyAddedVel = false;
 let timer;
+let isGamePaused = false;
 
 function initGame() {
     bird = new Bird();
@@ -302,6 +307,14 @@ document.addEventListener("keydown", (event) => {
             if (!jumpPressed) {
                 jumpPressed = true;
                 bird.velocityY = jumpVelocity;
+            }
+            break;
+        case "escape":
+            isGamePaused = !isGamePaused;
+            if (isGamePaused) {
+                pauseMenu.style.display = "flex";
+            } else {
+                pauseMenu.style.display = "none";
             }
             break;
     }
